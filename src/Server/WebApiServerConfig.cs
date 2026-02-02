@@ -19,6 +19,7 @@ public class WebApiServerConfig {
   public readonly int port;
   public readonly string hostIpAddress;
   public readonly string startMessage;
+  public WebApiCorsSettings? corsSettings;
 
   //documentationRoute: string;
   //sslSettings: WebApiSslSettings | null;
@@ -36,13 +37,15 @@ public class WebApiServerConfig {
     string? hostIpAddress = null,
     int? port = null, 
     string? environment = null,
-    string? startMessage = null
+    string? startMessage = null,
+    WebApiCorsSettings? corsSettings = null
   )
   {
     this.appName = appName;
     this.port = port ?? PORT_DEFAULT;
     this.hostIpAddress = hostIpAddress ?? HOST_IP_DEFAULT;
     this.environment = environment;
+    this.corsSettings = corsSettings;
     
     string message = startMessage ?? START_MESSAGE_DEFAULT;
     message = message

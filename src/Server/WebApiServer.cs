@@ -51,20 +51,30 @@ public class WebApiServer {
       app.Listen(this.hostIpAddress, this.port);
     });
     
-    this.serverBuilder.Services.AddCors((corsOptions) =>
-    {
-      CorsPolicyBuilder cpb = new();
-      cpb.AllowAnyHeader();
-      cpb.AllowAnyMethod();
-      cpb.WithOrigins("http://localhost:3000", "https://localhost:3043", "http://192.168.1.1");
-
-      corsOptions.AddPolicy("CORS", cpb.Build());
-    });
+    if (config.corsSettings != null) {
+      this.serverBuilder.Services.AddCors(corsOptions =>
+      {
+        corsOptions.AddPolicy("CORS", config.corsSettings.build());
+      });
+    }
 
     this.serverBuilder.Services.AddControllers();
   }
 
+  /// <summary>
+  /// Ecplicity setting configs to use CORS policy
+  /// </summary>
+  /// <param name="corsSettings">The Web-Api suited cors settings</param>
+  public void useCors(WebApiCorsSettings corsSettings)
+  {
+    this.config.corsSettings = corsSettings;
+  }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="args"></param>
+  /// <returns></returns>
   public async Task start(params string[] args)
   {
     this.server ??= this.serverBuilder.Build();
