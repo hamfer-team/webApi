@@ -539,7 +539,7 @@ public static class WebApiContentTypeEnumExtension
 {
   public static string ToStringContentType(this WebApiContentTypeEnum wact, string? charSet = null)
   {
-    string? cts = Type.GetType("WebApiContentType")?.GetField(wact.ToString())?.GetValue(null)?.ToString();
+    string? cts = typeof(WebApiContentType).GetField(wact.ToString())?.GetValue(null)?.ToString();
     if (cts != null && charSet != null) cts = WebApiContentType.AddCharSet(cts, charSet);
     return cts ?? "";
   }
