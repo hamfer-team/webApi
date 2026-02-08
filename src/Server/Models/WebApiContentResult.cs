@@ -10,9 +10,9 @@ public class WebApiContentResult : ContentResult, IWebApiActionResult
 
 public class WebApiTextContentResult : ContentResult, IWebApiActionResult
 {
-  public WebApiTextContentResult(string content, WebApiStatusCode statusCode)
+  public WebApiTextContentResult(string content, WebApiStatusCode statusCode, string charSet = "utf-8")
   {
-    this.ContentType = WebApiContentType.TEXT;
+    this.ContentType = WebApiContentType.AddCharSet(WebApiContentType.TEXT, charSet);
     this.Content = content;
     this.StatusCode = (int)statusCode;
   }
@@ -20,9 +20,9 @@ public class WebApiTextContentResult : ContentResult, IWebApiActionResult
 
 public class WebApiObjectContentResult<TObject> : ContentResult, IWebApiActionResult where TObject: class
 {
-  public WebApiObjectContentResult(TObject content, WebApiStatusCode statusCode)
+  public WebApiObjectContentResult(TObject content, WebApiStatusCode statusCode, string charSet = "utf-8")
   {
-    this.ContentType = WebApiContentType.JSON;
+    this.ContentType = WebApiContentType.AddCharSet(WebApiContentType.JSON, charSet);
     this.Content = JsonSerializer.Serialize(content);
     this.StatusCode = (int)statusCode;
   }
@@ -30,11 +30,29 @@ public class WebApiObjectContentResult<TObject> : ContentResult, IWebApiActionRe
 
 public class WebApiJsonContentResult<TContent> : ContentResult, IWebApiActionResult where TContent: class
 {
-  public WebApiJsonContentResult(TContent content, WebApiStatusCode statusCode)
+  public WebApiJsonContentResult(TContent content, WebApiStatusCode statusCode, string charSet = "utf-8")
   {
-    this.ContentType = WebApiContentType.JSON;
+    this.ContentType = WebApiContentType.AddCharSet(WebApiContentType.JSON, charSet);
     this.Content = JsonSerializer.Serialize(content);
     this.StatusCode = (int)statusCode;
+  }
+}
+
+public class WebApiFileContentResult : FileContentResult, IWebApiActionResult
+{
+  public WebApiFileContentResult(byte[] fileContent, WebApiContentTypeEnum contentType, string charSet = "utf-8")
+    : base(fileContent, contentType.ToStringContentType(charSet))
+  {
+  }
+
+  public WebApiFileContentResult(string fileName, WebApiContentTypeEnum? contentType = null, string charSet = "utf-8")
+    : base(
+      File.ReadAllBytes(fileName), 
+      contentType?.ToStringContentType(charSet) 
+        ?? WebApiContentType.FromFileName(fileName, charSet) 
+        ?? WebApiContentType.AddCharSet(WebApiContentType.BINARY, charSet)
+    )
+  {
   }
 }
 

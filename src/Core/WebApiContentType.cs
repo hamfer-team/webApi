@@ -12,7 +12,7 @@ public static class WebApiContentType
   public const  string MEDIA_TYPE_DELIMITER = "/";
   
 // https://www.iana.org/assignments/media-types/media-types.xhtml
-  public static readonly Dictionary<string, Dictionary<string,string>> CONTENT_TYPE_IANA = new() 
+  public static readonly Dictionary<string, Dictionary<string,string>> MEDIA_TYPE_IANA = new() 
   {
     #region Discrete types
     { "APPLICATION", ApplicationContentType.ContentTypes },
@@ -31,19 +31,19 @@ public static class WebApiContentType
     #endregion
   };
   
-  public static readonly Dictionary<string, string> ContentTypes = new()
+  public static readonly Dictionary<string, string> MediaTypes = new()
   {
   	//#region WEB
-    {"CSS", CONTENT_TYPE_IANA["TEXT"]["css"]},   // CSS files used to style a Web page must be sent with text/css.
-    {"CSV", CONTENT_TYPE_IANA["TEXT"]["csv"]},
-    {"HTML", CONTENT_TYPE_IANA["TEXT"]["html"]},
-    {"JS", CONTENT_TYPE_IANA["TEXT"]["javascript"]},
-    {"JSON", CONTENT_TYPE_IANA["APPLICATION"]["json"]},
-    {"JSONLD", CONTENT_TYPE_IANA["APPLICATION"]["ld+json"]},   // JSON-LD format
-    {"MJS", CONTENT_TYPE_IANA["TEXT"]["javascript"]},   // JavaScript module
+    {"CSS", MEDIA_TYPE_IANA["TEXT"]["css"]},   // CSS files used to style a Web page must be sent with text/css.
+    {"CSV", MEDIA_TYPE_IANA["TEXT"]["csv"]},
+    {"HTML", MEDIA_TYPE_IANA["TEXT"]["html"]},
+    {"JS", MEDIA_TYPE_IANA["TEXT"]["javascript"]},
+    {"JSON", MEDIA_TYPE_IANA["APPLICATION"]["json"]},
+    {"JSONLD", MEDIA_TYPE_IANA["APPLICATION"]["ld+json"]},   // JSON-LD format
+    {"MJS", MEDIA_TYPE_IANA["TEXT"]["javascript"]},   // JavaScript module
     {"PHP", "application/x-httpd-php"},   // Hypertext Preprocessor (Personal Home Page)
-    {"WEB_MANIFEST", CONTENT_TYPE_IANA["APPLICATION"]["manifest+json"]},   // Web application manifest
-    {"XHTML", CONTENT_TYPE_IANA["APPLICATION"]["xhtml+xml"]},
+    {"WEB_MANIFEST", MEDIA_TYPE_IANA["APPLICATION"]["manifest+json"]},   // Web application manifest
+    {"XHTML", MEDIA_TYPE_IANA["APPLICATION"]["xhtml+xml"]},
 
     {"ANY_APPLICATION", "application/*"},
 	  //#endregion
@@ -53,68 +53,68 @@ public static class WebApiContentType
     {"ARC", "application/x-freearc"},   //Archive document (multiple files embedded)
     {"BZ", "application/x-bzip"},   // BZip archive
     {"BZ2", "application/x-bzip2"},   // BZip2 archive
-    {"GZ", CONTENT_TYPE_IANA["APPLICATION"]["gzip"]},   // GZip Compressed Archive
+    {"GZ", MEDIA_TYPE_IANA["APPLICATION"]["gzip"]},   // GZip Compressed Archive
     {"GZ_ALT", "application/x-gzip"},
-    {"JAR", CONTENT_TYPE_IANA["APPLICATION"]["java-archive"]}, // Java Archive (JAR)
-    {"MPKG", CONTENT_TYPE_IANA["APPLICATION"]["vnd.apple.installer+xml"]},   // Apple Installer Package
-    {"RAR", CONTENT_TYPE_IANA["APPLICATION"]["vnd.rar"]},
+    {"JAR", MEDIA_TYPE_IANA["APPLICATION"]["java-archive"]}, // Java Archive (JAR)
+    {"MPKG", MEDIA_TYPE_IANA["APPLICATION"]["vnd.apple.installer+xml"]},   // Apple Installer Package
+    {"RAR", MEDIA_TYPE_IANA["APPLICATION"]["vnd.rar"]},
     {"RAR_ALT", "application/x-rar-compressed"},
     {"TAR", "application/x-tar"},   // Tape Archive (TAR)
-    {"ZIP", CONTENT_TYPE_IANA["APPLICATION"]["zip"]},
+    {"ZIP", MEDIA_TYPE_IANA["APPLICATION"]["zip"]},
     {"ZIP_ALT", "application/x-zip-compressed"},
 	//#endregion
   
 	//#region DOCUMENTS
     {"ABW", "application/x-abiword"},   // AbiWord document
     {"AZW", "application/vnd.amazon.ebook"},    // Amazon Kindle eBook format
-    {"DOC", CONTENT_TYPE_IANA["APPLICATION"]["msword"]},
-    {"DOCX", CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.wordprocessingml.document"]},
-    {"EPUB", CONTENT_TYPE_IANA["APPLICATION"]["epub+zip"]},    // Electronic publication (EPUB)
+    {"DOC", MEDIA_TYPE_IANA["APPLICATION"]["msword"]},
+    {"DOCX", MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.wordprocessingml.document"]},
+    {"EPUB", MEDIA_TYPE_IANA["APPLICATION"]["epub+zip"]},    // Electronic publication (EPUB)
     {"ICS", "text/calendar"},   // iCalendar format
-    {"MD", CONTENT_TYPE_IANA["TEXT"]["markdown"]},
-    {"ODP", CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.presentation"]},    // OpenDocument presentation document
-    {"ODS", CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.spreadsheet"]},    // OpenDocument spreadsheet document
-    {"ODT", CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.text"]},    // OpenDocument text document
-    {"PDF", CONTENT_TYPE_IANA["APPLICATION"]["pdf"]},
-    {"PPT", CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-powerpoint"]},
-    {"PPTX", CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.presentationml.presentation"]},
-    {"RTF", CONTENT_TYPE_IANA["APPLICATION"]["rtf"]},
-    {"VSD", CONTENT_TYPE_IANA["APPLICATION"]["vnd.visio"]},
-    {"XLS", CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-excel"]},
-    {"XLSX", CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.spreadsheetml.sheet"]},
-    {"XML", CONTENT_TYPE_IANA["APPLICATION"]["xml"]},
-    {"XML_ALT", CONTENT_TYPE_IANA["TEXT"]["xml"]},
-    {"XML_ATOM", CONTENT_TYPE_IANA["APPLICATION"]["atom+xml"]},
+    {"MD", MEDIA_TYPE_IANA["TEXT"]["markdown"]},
+    {"ODP", MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.presentation"]},    // OpenDocument presentation document
+    {"ODS", MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.spreadsheet"]},    // OpenDocument spreadsheet document
+    {"ODT", MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.text"]},    // OpenDocument text document
+    {"PDF", MEDIA_TYPE_IANA["APPLICATION"]["pdf"]},
+    {"PPT", MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-powerpoint"]},
+    {"PPTX", MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.presentationml.presentation"]},
+    {"RTF", MEDIA_TYPE_IANA["APPLICATION"]["rtf"]},
+    {"VSD", MEDIA_TYPE_IANA["APPLICATION"]["vnd.visio"]},
+    {"XLS", MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-excel"]},
+    {"XLSX", MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.spreadsheetml.sheet"]},
+    {"XML", MEDIA_TYPE_IANA["APPLICATION"]["xml"]},
+    {"XML_ALT", MEDIA_TYPE_IANA["TEXT"]["xml"]},
+    {"XML_ATOM", MEDIA_TYPE_IANA["APPLICATION"]["atom+xml"]},
 
     {"ANY_TEXT", "text/*"},
 	//#endregion
   
 	//#region IMAGE
-    {"APNG", CONTENT_TYPE_IANA["IMAGE"]["apng"]},   // Animated Portable Network Graphics
-    {"AVIF", CONTENT_TYPE_IANA["IMAGE"]["avif"]},
-    {"BMP", CONTENT_TYPE_IANA["IMAGE"]["bmp"]},
-    {"GIF", CONTENT_TYPE_IANA["IMAGE"]["gif"]},   // Graphics Interchange Format (GIF)
-    {"ICON", CONTENT_TYPE_IANA["IMAGE"]["vnd.microsoft.icon"]},
-    {"JPEG", CONTENT_TYPE_IANA["IMAGE"]["jpeg"]},
-    {"JPG", CONTENT_TYPE_IANA["IMAGE"]["jpeg"]},
-    {"PNG", CONTENT_TYPE_IANA["IMAGE"]["png"]},
-    {"SVG", CONTENT_TYPE_IANA["IMAGE"]["svg+xml"]},    // Scalable Vector Graphics (SVG)
-    {"TIFF", CONTENT_TYPE_IANA["IMAGE"]["tiff"]},   // Tagged Image File Format (TIFF)
-    {"WEBP", CONTENT_TYPE_IANA["IMAGE"]["webp"]},
+    {"APNG", MEDIA_TYPE_IANA["IMAGE"]["apng"]},   // Animated Portable Network Graphics
+    {"AVIF", MEDIA_TYPE_IANA["IMAGE"]["avif"]},
+    {"BMP", MEDIA_TYPE_IANA["IMAGE"]["bmp"]},
+    {"GIF", MEDIA_TYPE_IANA["IMAGE"]["gif"]},   // Graphics Interchange Format (GIF)
+    {"ICON", MEDIA_TYPE_IANA["IMAGE"]["vnd.microsoft.icon"]},
+    {"JPEG", MEDIA_TYPE_IANA["IMAGE"]["jpeg"]},
+    {"JPG", MEDIA_TYPE_IANA["IMAGE"]["jpeg"]},
+    {"PNG", MEDIA_TYPE_IANA["IMAGE"]["png"]},
+    {"SVG", MEDIA_TYPE_IANA["IMAGE"]["svg+xml"]},    // Scalable Vector Graphics (SVG)
+    {"TIFF", MEDIA_TYPE_IANA["IMAGE"]["tiff"]},   // Tagged Image File Format (TIFF)
+    {"WEBP", MEDIA_TYPE_IANA["IMAGE"]["webp"]},
 
     {"ANY_IMAGE", "image/*"},
 	//#endregion
 
 	//#region AUDIO
-    {"3G2_AUDIO", CONTENT_TYPE_IANA["AUDIO"]["3gpp2"]},
-    {"3GP_AUDIO", CONTENT_TYPE_IANA["AUDIO"]["3gpp"]},
-    {"AAC", CONTENT_TYPE_IANA["AUDIO"]["aac"]},
-    {"MP3", CONTENT_TYPE_IANA["AUDIO"]["mpeg"]},
+    {"3G2_AUDIO", MEDIA_TYPE_IANA["AUDIO"]["3gpp2"]},
+    {"3GP_AUDIO", MEDIA_TYPE_IANA["AUDIO"]["3gpp"]},
+    {"AAC", MEDIA_TYPE_IANA["AUDIO"]["aac"]},
+    {"MP3", MEDIA_TYPE_IANA["AUDIO"]["mpeg"]},
     {"CDA", "application/x-cdf"},   // CD audio
     {"MIDI", "audio/x-midi"},   // Musical Instrument Digital Interface (MIDI)
     {"MIDI_ALT", "audio/midi"},
-    {"OGA", CONTENT_TYPE_IANA["AUDIO"]["ogg"]},
-    {"OPUS", CONTENT_TYPE_IANA["AUDIO"]["ogg"]},
+    {"OGA", MEDIA_TYPE_IANA["AUDIO"]["ogg"]},
+    {"OPUS", MEDIA_TYPE_IANA["AUDIO"]["ogg"]},
     {"WAV", "audio/wav"},   // Waveform Audio Format
     {"WEBA", "audio/webm"},
 
@@ -122,25 +122,25 @@ public static class WebApiContentType
 	//#endregion
   
 	//#region VIDEO
-    {"3G2", CONTENT_TYPE_IANA["VIDEO"]["3gpp2"]},
-    {"3GP", CONTENT_TYPE_IANA["VIDEO"]["3gpp"]},
+    {"3G2", MEDIA_TYPE_IANA["VIDEO"]["3gpp2"]},
+    {"3GP", MEDIA_TYPE_IANA["VIDEO"]["3gpp"]},
     {"AVI", "video/x-msvideo"},   //    {"AVI", Audio Video Interleave
     {"AVI_ALT", "video/avi"},
-    {"MP4", CONTENT_TYPE_IANA["VIDEO"]["mp4"]},
-    {"MPEG", CONTENT_TYPE_IANA["VIDEO"]["mpeg"]},
-    {"OGV", CONTENT_TYPE_IANA["VIDEO"]["ogg"]},
-    {"TS", CONTENT_TYPE_IANA["VIDEO"]["MP2T"]},     // MPEG transport stream
+    {"MP4", MEDIA_TYPE_IANA["VIDEO"]["mp4"]},
+    {"MPEG", MEDIA_TYPE_IANA["VIDEO"]["mpeg"]},
+    {"OGV", MEDIA_TYPE_IANA["VIDEO"]["ogg"]},
+    {"TS", MEDIA_TYPE_IANA["VIDEO"]["MP2T"]},     // MPEG transport stream
     {"WEBM", "video/webm"},
   
     {"ANY_VIDEO", "video/*"},
 	//#endregion
   
 	//#region FONT
-    {"EOT", CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-fontobject"]},   // MS Embedded OpenType fonts
-    {"OTF", CONTENT_TYPE_IANA["FONT"]["otf"]},
-    {"TTF", CONTENT_TYPE_IANA["FONT"]["ttf"]},    // TrueType Font
-    {"WOFF", CONTENT_TYPE_IANA["FONT"]["woff"]},   // Web Open Font Format (WOFF)
-    {"WOFF2", CONTENT_TYPE_IANA["FONT"]["woff2"]},
+    {"EOT", MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-fontobject"]},   // MS Embedded OpenType fonts
+    {"OTF", MEDIA_TYPE_IANA["FONT"]["otf"]},
+    {"TTF", MEDIA_TYPE_IANA["FONT"]["ttf"]},    // TrueType Font
+    {"WOFF", MEDIA_TYPE_IANA["FONT"]["woff"]},   // Web Open Font Format (WOFF)
+    {"WOFF2", MEDIA_TYPE_IANA["FONT"]["woff2"]},
   
     {"ANY_FONT", "font/*"},
 	//#endregion
@@ -150,27 +150,27 @@ public static class WebApiContentType
     {"SH", "application/x-sh"},   // Bourne shell script
 	//#endregion
 
-    {"FORM_URLENCODED", CONTENT_TYPE_IANA["APPLICATION"]["x-www-form-urlencoded"]},
-    {"FORM_DATA", CONTENT_TYPE_IANA["MULTIPART"]["form-data"]},
+    {"FORM_URLENCODED", MEDIA_TYPE_IANA["APPLICATION"]["x-www-form-urlencoded"]},
+    {"FORM_DATA", MEDIA_TYPE_IANA["MULTIPART"]["form-data"]},
   
     {"ANY", "*/*"},
-    {"TEXT", CONTENT_TYPE_IANA["TEXT"]["plain"]},    // For text documents without a specific subtype, text/plain should be used.
-    {"BINARY", CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]}, // Any kind of binary data.
-    {"UNRECOGNIZED", CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]}, // For binary documents without a specific or known subtype, application/octet-stream should be used.
-    {"TO_DOWNLOAD", CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]}, // Browsers treat this as if the Content-Disposition header was set to attachment, and propose a "Save As" dialog.
+    {"TEXT", MEDIA_TYPE_IANA["TEXT"]["plain"]},    // For text documents without a specific subtype, text/plain should be used.
+    {"BINARY", MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]}, // Any kind of binary data.
+    {"UNRECOGNIZED", MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]}, // For binary documents without a specific or known subtype, application/octet-stream should be used.
+    {"TO_DOWNLOAD", MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]}, // Browsers treat this as if the Content-Disposition header was set to attachment, and propose a "Save As" dialog.
   };
 
   //#region WEB
-  public static readonly string CSS = CONTENT_TYPE_IANA["TEXT"]["css"];   // CSS files used to style a Web page must be sent with text/css.
-  public static readonly string CSV = CONTENT_TYPE_IANA["TEXT"]["csv"];
-  public static readonly string HTML = CONTENT_TYPE_IANA["TEXT"]["html"];
-  public static readonly string JS = CONTENT_TYPE_IANA["TEXT"]["javascript"];
-  public static readonly string JSON = CONTENT_TYPE_IANA["APPLICATION"]["json"];
-  public static readonly string JSONLD = CONTENT_TYPE_IANA["APPLICATION"]["ld+json"];   // JSON-LD format
-  public static readonly string MJS = CONTENT_TYPE_IANA["TEXT"]["javascript"];   // JavaScript module
+  public static readonly string CSS = MEDIA_TYPE_IANA["TEXT"]["css"];   // CSS files used to style a Web page must be sent with text/css.
+  public static readonly string CSV = MEDIA_TYPE_IANA["TEXT"]["csv"];
+  public static readonly string HTML = MEDIA_TYPE_IANA["TEXT"]["html"];
+  public static readonly string JS = MEDIA_TYPE_IANA["TEXT"]["javascript"];
+  public static readonly string JSON = MEDIA_TYPE_IANA["APPLICATION"]["json"];
+  public static readonly string JSONLD = MEDIA_TYPE_IANA["APPLICATION"]["ld+json"];   // JSON-LD format
+  public static readonly string MJS = MEDIA_TYPE_IANA["TEXT"]["javascript"];   // JavaScript module
   public static readonly string PHP = "application/x-httpd-php";   // Hypertext Preprocessor (Personal Home Page)
-  public static readonly string WEB_MANIFEST = CONTENT_TYPE_IANA["APPLICATION"]["manifest+json"];   // Web application manifest
-  public static readonly string XHTML = CONTENT_TYPE_IANA["APPLICATION"]["xhtml+xml"];
+  public static readonly string WEB_MANIFEST = MEDIA_TYPE_IANA["APPLICATION"]["manifest+json"];   // Web application manifest
+  public static readonly string XHTML = MEDIA_TYPE_IANA["APPLICATION"]["xhtml+xml"];
 
   public static readonly string ANY_APPLICATION = "application/*";
   //#endregion
@@ -180,68 +180,68 @@ public static class WebApiContentType
   public static readonly string ARC = "application/x-freearc";   //Archive document (multiple files embedded)
   public static readonly string BZ = "application/x-bzip";   // BZip archive
   public static readonly string BZ2 = "application/x-bzip2";   // BZip2 archive
-  public static readonly string GZ = CONTENT_TYPE_IANA["APPLICATION"]["gzip"];   // GZip Compressed Archive
+  public static readonly string GZ = MEDIA_TYPE_IANA["APPLICATION"]["gzip"];   // GZip Compressed Archive
   public static readonly string GZ_ALT = "application/x-gzip";
-  public static readonly string JAR = CONTENT_TYPE_IANA["APPLICATION"]["java-archive"]; // Java Archive (JAR)
-  public static readonly string MPKG = CONTENT_TYPE_IANA["APPLICATION"]["vnd.apple.installer+xml"];   // Apple Installer Package
-  public static readonly string RAR = CONTENT_TYPE_IANA["APPLICATION"]["vnd.rar"];
+  public static readonly string JAR = MEDIA_TYPE_IANA["APPLICATION"]["java-archive"]; // Java Archive (JAR)
+  public static readonly string MPKG = MEDIA_TYPE_IANA["APPLICATION"]["vnd.apple.installer+xml"];   // Apple Installer Package
+  public static readonly string RAR = MEDIA_TYPE_IANA["APPLICATION"]["vnd.rar"];
   public static readonly string RAR_ALT = "application/x-rar-compressed";
   public static readonly string TAR = "application/x-tar";   // Tape Archive (TAR)
-  public static readonly string ZIP = CONTENT_TYPE_IANA["APPLICATION"]["zip"];
+  public static readonly string ZIP = MEDIA_TYPE_IANA["APPLICATION"]["zip"];
   public static readonly string ZIP_ALT = "application/x-zip-compressed";
   //#endregion
 
   //#region DOCUMENTS
   public static readonly string ABW = "application/x-abiword";   // AbiWord document
   public static readonly string AZW = "application/vnd.amazon.ebook";    // Amazon Kindle eBook format
-  public static readonly string DOC = CONTENT_TYPE_IANA["APPLICATION"]["msword"];
-  public static readonly string DOCX = CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.wordprocessingml.document"];
-  public static readonly string EPUB = CONTENT_TYPE_IANA["APPLICATION"]["epub+zip"];    // Electronic publication (EPUB)
+  public static readonly string DOC = MEDIA_TYPE_IANA["APPLICATION"]["msword"];
+  public static readonly string DOCX = MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.wordprocessingml.document"];
+  public static readonly string EPUB = MEDIA_TYPE_IANA["APPLICATION"]["epub+zip"];    // Electronic publication (EPUB)
   public static readonly string ICS = "text/calendar";   // iCalendar format
-  public static readonly string MD = CONTENT_TYPE_IANA["TEXT"]["markdown"];
-  public static readonly string ODP = CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.presentation"];    // OpenDocument presentation document
-  public static readonly string ODS = CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.spreadsheet"];    // OpenDocument spreadsheet document
-  public static readonly string ODT = CONTENT_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.text"];    // OpenDocument text document
-  public static readonly string PDF = CONTENT_TYPE_IANA["APPLICATION"]["pdf"];
-  public static readonly string PPT = CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-powerpoint"];
-  public static readonly string PPTX = CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.presentationml.presentation"];
-  public static readonly string RTF = CONTENT_TYPE_IANA["APPLICATION"]["rtf"];
-  public static readonly string VSD = CONTENT_TYPE_IANA["APPLICATION"]["vnd.visio"];
-  public static readonly string XLS = CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-excel"];
-  public static readonly string XLSX = CONTENT_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
-  public static readonly string XML = CONTENT_TYPE_IANA["APPLICATION"]["xml"];
-  public static readonly string XML_ALT = CONTENT_TYPE_IANA["TEXT"]["xml"];
-  public static readonly string XML_ATOM = CONTENT_TYPE_IANA["APPLICATION"]["atom+xml"];
+  public static readonly string MD = MEDIA_TYPE_IANA["TEXT"]["markdown"];
+  public static readonly string ODP = MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.presentation"];    // OpenDocument presentation document
+  public static readonly string ODS = MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.spreadsheet"];    // OpenDocument spreadsheet document
+  public static readonly string ODT = MEDIA_TYPE_IANA["APPLICATION"]["vnd.oasis.opendocument.text"];    // OpenDocument text document
+  public static readonly string PDF = MEDIA_TYPE_IANA["APPLICATION"]["pdf"];
+  public static readonly string PPT = MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-powerpoint"];
+  public static readonly string PPTX = MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.presentationml.presentation"];
+  public static readonly string RTF = MEDIA_TYPE_IANA["APPLICATION"]["rtf"];
+  public static readonly string VSD = MEDIA_TYPE_IANA["APPLICATION"]["vnd.visio"];
+  public static readonly string XLS = MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-excel"];
+  public static readonly string XLSX = MEDIA_TYPE_IANA["APPLICATION"]["vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+  public static readonly string XML = MEDIA_TYPE_IANA["APPLICATION"]["xml"];
+  public static readonly string XML_ALT = MEDIA_TYPE_IANA["TEXT"]["xml"];
+  public static readonly string XML_ATOM = MEDIA_TYPE_IANA["APPLICATION"]["atom+xml"];
 
   public static readonly string ANY_TEXT = "text/*";
   //#endregion
 
   //#region IMAGE
-  public static readonly string APNG = CONTENT_TYPE_IANA["IMAGE"]["apng"];   // Animated Portable Network Graphics
-  public static readonly string AVIF = CONTENT_TYPE_IANA["IMAGE"]["avif"];
-  public static readonly string BMP = CONTENT_TYPE_IANA["IMAGE"]["bmp"];
-  public static readonly string GIF = CONTENT_TYPE_IANA["IMAGE"]["gif"];   // Graphics Interchange Format (GIF)
-  public static readonly string ICON = CONTENT_TYPE_IANA["IMAGE"]["vnd.microsoft.icon"];
-  public static readonly string JPEG = CONTENT_TYPE_IANA["IMAGE"]["jpeg"];
-  public static readonly string JPG = CONTENT_TYPE_IANA["IMAGE"]["jpeg"];
-  public static readonly string PNG = CONTENT_TYPE_IANA["IMAGE"]["png"];
-  public static readonly string SVG = CONTENT_TYPE_IANA["IMAGE"]["svg+xml"];    // Scalable Vector Graphics (SVG)
-  public static readonly string TIFF = CONTENT_TYPE_IANA["IMAGE"]["tiff"];   // Tagged Image File Format (TIFF)
-  public static readonly string WEBP = CONTENT_TYPE_IANA["IMAGE"]["webp"];
+  public static readonly string APNG = MEDIA_TYPE_IANA["IMAGE"]["apng"];   // Animated Portable Network Graphics
+  public static readonly string AVIF = MEDIA_TYPE_IANA["IMAGE"]["avif"];
+  public static readonly string BMP = MEDIA_TYPE_IANA["IMAGE"]["bmp"];
+  public static readonly string GIF = MEDIA_TYPE_IANA["IMAGE"]["gif"];   // Graphics Interchange Format (GIF)
+  public static readonly string ICON = MEDIA_TYPE_IANA["IMAGE"]["vnd.microsoft.icon"];
+  public static readonly string JPEG = MEDIA_TYPE_IANA["IMAGE"]["jpeg"];
+  public static readonly string JPG = MEDIA_TYPE_IANA["IMAGE"]["jpeg"];
+  public static readonly string PNG = MEDIA_TYPE_IANA["IMAGE"]["png"];
+  public static readonly string SVG = MEDIA_TYPE_IANA["IMAGE"]["svg+xml"];    // Scalable Vector Graphics (SVG)
+  public static readonly string TIFF = MEDIA_TYPE_IANA["IMAGE"]["tiff"];   // Tagged Image File Format (TIFF)
+  public static readonly string WEBP = MEDIA_TYPE_IANA["IMAGE"]["webp"];
 
   public static readonly string ANY_IMAGE = "image/*";
   //#endregion
 
   //#region AUDIO
-  public static readonly string _3G2_AUDIO = CONTENT_TYPE_IANA["AUDIO"]["3gpp2"];
-  public static readonly string _3GP_AUDIO = CONTENT_TYPE_IANA["AUDIO"]["3gpp"];
-  public static readonly string AAC = CONTENT_TYPE_IANA["AUDIO"]["aac"];
-  public static readonly string MP3 = CONTENT_TYPE_IANA["AUDIO"]["mpeg"];
+  public static readonly string _3G2_AUDIO = MEDIA_TYPE_IANA["AUDIO"]["3gpp2"];
+  public static readonly string _3GP_AUDIO = MEDIA_TYPE_IANA["AUDIO"]["3gpp"];
+  public static readonly string AAC = MEDIA_TYPE_IANA["AUDIO"]["aac"];
+  public static readonly string MP3 = MEDIA_TYPE_IANA["AUDIO"]["mpeg"];
   public static readonly string CDA = "application/x-cdf";   // CD audio
   public static readonly string MIDI = "audio/x-midi";   // Musical Instrument Digital Interface (MIDI)
   public static readonly string MIDI_ALT = "audio/midi";
-  public static readonly string OGA = CONTENT_TYPE_IANA["AUDIO"]["ogg"];
-  public static readonly string OPUS = CONTENT_TYPE_IANA["AUDIO"]["ogg"];
+  public static readonly string OGA = MEDIA_TYPE_IANA["AUDIO"]["ogg"];
+  public static readonly string OPUS = MEDIA_TYPE_IANA["AUDIO"]["ogg"];
   public static readonly string WAV = "audio/wav";   // Waveform Audio Format
   public static readonly string WEBA = "audio/webm";
 
@@ -249,25 +249,25 @@ public static class WebApiContentType
   //#endregion
 
   //#region VIDEO
-  public static readonly string _3G2 = CONTENT_TYPE_IANA["VIDEO"]["3gpp2"];
-  public static readonly string _3GP = CONTENT_TYPE_IANA["VIDEO"]["3gpp"];
+  public static readonly string _3G2 = MEDIA_TYPE_IANA["VIDEO"]["3gpp2"];
+  public static readonly string _3GP = MEDIA_TYPE_IANA["VIDEO"]["3gpp"];
   public static readonly string AVI = "video/x-msvideo";   //    public static readonly string AVI = Audio Video Interleave
   public static readonly string AVI_ALT = "video/avi";
-  public static readonly string MP4 = CONTENT_TYPE_IANA["VIDEO"]["mp4"];
-  public static readonly string MPEG = CONTENT_TYPE_IANA["VIDEO"]["mpeg"];
-  public static readonly string OGV = CONTENT_TYPE_IANA["VIDEO"]["ogg"];
-  public static readonly string TS = CONTENT_TYPE_IANA["VIDEO"]["MP2T"];     // MPEG transport stream
+  public static readonly string MP4 = MEDIA_TYPE_IANA["VIDEO"]["mp4"];
+  public static readonly string MPEG = MEDIA_TYPE_IANA["VIDEO"]["mpeg"];
+  public static readonly string OGV = MEDIA_TYPE_IANA["VIDEO"]["ogg"];
+  public static readonly string TS = MEDIA_TYPE_IANA["VIDEO"]["MP2T"];     // MPEG transport stream
   public static readonly string WEBM = "video/webm";
 
   public static readonly string ANY_VIDEO = "video/*";
   //#endregion
 
   //#region FONT
-  public static readonly string EOT = CONTENT_TYPE_IANA["APPLICATION"]["vnd.ms-fontobject"];   // MS Embedded OpenType fonts
-  public static readonly string OTF = CONTENT_TYPE_IANA["FONT"]["otf"];
-  public static readonly string TTF = CONTENT_TYPE_IANA["FONT"]["ttf"];    // TrueType Font
-  public static readonly string WOFF = CONTENT_TYPE_IANA["FONT"]["woff"];   // Web Open Font Format (WOFF)
-  public static readonly string WOFF2 = CONTENT_TYPE_IANA["FONT"]["woff2"];
+  public static readonly string EOT = MEDIA_TYPE_IANA["APPLICATION"]["vnd.ms-fontobject"];   // MS Embedded OpenType fonts
+  public static readonly string OTF = MEDIA_TYPE_IANA["FONT"]["otf"];
+  public static readonly string TTF = MEDIA_TYPE_IANA["FONT"]["ttf"];    // TrueType Font
+  public static readonly string WOFF = MEDIA_TYPE_IANA["FONT"]["woff"];   // Web Open Font Format (WOFF)
+  public static readonly string WOFF2 = MEDIA_TYPE_IANA["FONT"]["woff2"];
 
   public static readonly string ANY_FONT = "font/*";
 	//#endregion
@@ -277,14 +277,133 @@ public static class WebApiContentType
   public static readonly string SH = "application/x-sh";   // Bourne shell script
 	//#endregion
 
-  public static readonly string FORM_URLENCODED = CONTENT_TYPE_IANA["APPLICATION"]["x-www-form-urlencoded"];
-  public static readonly string FORM_DATA = CONTENT_TYPE_IANA["MULTIPART"]["form-data"];
+  public static readonly string FORM_URLENCODED = MEDIA_TYPE_IANA["APPLICATION"]["x-www-form-urlencoded"];
+  public static readonly string FORM_DATA = MEDIA_TYPE_IANA["MULTIPART"]["form-data"];
 
   public static readonly string ANY = "*/*";
-  public static readonly string TEXT = CONTENT_TYPE_IANA["TEXT"]["plain"];    // For text documents without a specific subtype, text/plain should be used.
-  public static readonly string BINARY = CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]; // Any kind of binary data.
-  public static readonly string UNRECOGNIZED = CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]; // For binary documents without a specific or known subtype, application/octet-stream should be used.
-  public static readonly string TO_DOWNLOAD = CONTENT_TYPE_IANA["APPLICATION"]["octet-stream"]; // Browsers treat this as if the Content-Disposition header was set to attachment, and propose a "Save As" dialog.
+  public static readonly string TEXT = MEDIA_TYPE_IANA["TEXT"]["plain"];    // For text documents without a specific subtype, text/plain should be used.
+  public static readonly string BINARY = MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]; // Any kind of binary data.
+  public static readonly string UNRECOGNIZED = MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]; // For binary documents without a specific or known subtype, application/octet-stream should be used.
+  public static readonly string TO_DOWNLOAD = MEDIA_TYPE_IANA["APPLICATION"]["octet-stream"]; // Browsers treat this as if the Content-Disposition header was set to attachment, and propose a "Save As" dialog.
+
+  public static string AddCharSet(string mediaType, string? charSet) => !string.IsNullOrEmpty(charSet) ? $"{mediaType}; charset={charSet}" : mediaType;
+
+  public static readonly Dictionary<string, string> FileExtensionToMediaTypeMap = new()
+  {
+      #region WEB
+    {".css", CSS},
+    {".csv", CSV},
+    {".htm", HTML},
+    {".html", HTML},
+    {".js", JS},
+    {".json", JSON},
+    {".jsonld", JSONLD},
+    {".map", JSON},
+    {".mjs", MJS},
+    {".php", PHP},
+    {".webmanifest", WEB_MANIFEST},
+    //{".xhtml", XHTML}, // Alternative MIME types for XHTML (like application/xhtml+xml) are mostly useless nowadays.
+    {".xhtml", HTML},
+    #endregion
+    
+    #region COMPRESSED
+    {".7z", _7Z},
+    {".arc", ARC},
+    {".bz", BZ},
+    {".bz2", BZ2},
+    {".gz", GZ},
+    {".jar", JAR},
+    {".mpkg", MPKG},
+    {".rar", RAR},
+    {".tar", TAR},
+    {".zip", ZIP},
+    #endregion
+    
+    #region DOCUMENTS
+    {".abw", ABW},
+    {".azw", AZW},
+    {".doc", DOC},
+    {".docx", DOCX},
+    {".epub", EPUB},
+    {".ics", ICS},
+    {".md", MD},
+    {".odp", ODP},
+    {".ods", ODS},
+    {".odt", ODT},
+    {".pdf", PDF},
+    {".ppt", PPT},
+    {".pptx", PPTX},
+    {".rtf", RTF},
+    {".txt", TEXT},
+    {".vsd", VSD},
+    {".xls", XLS},
+    {".xlsx", XLSX},
+    {".xml", XML},
+    #endregion
+    
+    #region IMAGE
+    {".apng", APNG},
+    {".avif", AVIF},
+    {".bmp", BMP},
+    {".gif", GIF},
+    {".ico", ICON},
+    {".jpeg", JPEG},
+    {".jpg", JPG},
+    {".png", PNG},
+    {".svg", SVG},
+    {".tif", TIFF},
+    {".tiff", TIFF},
+    {".webp", WEBP},
+    #endregion
+    
+    #region AUDIO
+    {".aac", AAC},
+    {".mp3", MP3},
+    {".cda", CDA},
+    {".mid", MIDI},
+    {".midi", MIDI},
+    {".oga", OGA},
+    {".opus", OPUS},
+    {".wav", WAV},
+    {".weba", WEBA},
+    #endregion
+      
+    #region VIDEO
+    {".3g2", _3G2},
+    {".3gp", _3GP},
+    {".avi", AVI},
+    {".mp4", MP4},
+    {".mpg", MPEG},
+    {".mpeg", MPEG},
+    {".ogv", OGV},
+    {".ts", TS},
+    {".webm", WEBM},
+    #endregion
+      
+    #region FONT
+    {".eot", EOT},
+    {".otf", OTF},
+    {".ttf", TTF},
+    {".woff", WOFF},
+    {".woff2", WOFF2},
+    #endregion
+      
+    #region OTHERS
+    {".csh", CSH},
+    {".sh", SH},
+    #endregion
+  };
+
+  public static string? FromFileName(string fileName, string? charSet = null)
+  {
+    string extension = Path.GetExtension(fileName);
+    if(FileExtensionToMediaTypeMap.TryGetValue(extension, out string? mediaType))
+    {
+      return AddCharSet(mediaType, charSet);
+    }
+
+    return null;
+  }
 }
 
 public enum WebApiContentTypeEnum
@@ -418,8 +537,10 @@ public enum WebApiContentTypeEnum
 
 public static class WebApiContentTypeEnumExtension
 {
-  public static string ToStringContentType(this WebApiContentTypeEnum wact)
+  public static string ToStringContentType(this WebApiContentTypeEnum wact, string? charSet = null)
   {
-    return Type.GetType("WebApiContentType")?.GetField(wact.ToString())?.GetValue(null)?.ToString() ?? "";
+    string? cts = Type.GetType("WebApiContentType")?.GetField(wact.ToString())?.GetValue(null)?.ToString();
+    if (cts != null && charSet != null) cts = WebApiContentType.AddCharSet(cts, charSet);
+    return cts ?? "";
   }
 }

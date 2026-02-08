@@ -35,7 +35,7 @@ public class WebApiResult
 
   private string prepareContentType(string contentType, string? charSet = null)
   {
-    return charSet != null ? $"{contentType}; charset={charSet}" : contentType;
+    return WebApiContentType.AddCharSet(contentType, charSet);
   }
 
   private string prepareContentType(WebApiContentTypeEnum contentType, string? charSet = null)
