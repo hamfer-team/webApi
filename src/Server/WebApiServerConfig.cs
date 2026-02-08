@@ -14,7 +14,7 @@ public class WebApiServerConfig {
   //export const DOCUMENTATION_DEFAULT_ROUTE: string = "document";
   //const SESSION_MAX_AGE_DEFAULT: number = 120000; // 2 min
 
-  public readonly string? appName;
+  public readonly WebApiAppInfo? appInfo;
   public readonly string? environment;
   public readonly int port;
   public readonly string hostIpAddress;
@@ -29,23 +29,26 @@ public class WebApiServerConfig {
   /// <summary>
   /// Creating a new Web Api Server Config.
   /// </summary>
-  /// <param name="port">The Port number for listening</param>
   /// <param name="hostIpAddress">The IP-address of host, Use `0.0.0.0` for `ANY`</param>
+  /// <param name="port">The Port number for listening</param>
+  /// <param name="appInfo">The information about this app</param>
+  /// <param name="environment">The application environment</param>
   /// <param name="startMessage">The message that appears after starting server</param>
+  /// <param name="corsSettings">The CORS policies settings</param>
   public WebApiServerConfig(
-    string? appName = null,
     string? hostIpAddress = null,
     int? port = null, 
+    WebApiAppInfo? appInfo = null,
     string? environment = null,
     string? startMessage = null,
     WebApiCorsSettings? corsSettings = null
   )
   {
-    this.appName = appName;
     this.port = port ?? PORT_DEFAULT;
     this.hostIpAddress = hostIpAddress ?? HOST_IP_DEFAULT;
     this.environment = environment;
     this.corsSettings = corsSettings;
+    this.appInfo = appInfo;
     
     string message = startMessage ?? START_MESSAGE_DEFAULT;
     message = message

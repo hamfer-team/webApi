@@ -1,9 +1,9 @@
 using System.Net;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Hamfer.Kernel.Errors;
+using Microsoft.OpenApi;
 
 namespace Hamfer.WebApi.Server;
 
@@ -12,6 +12,8 @@ namespace Hamfer.WebApi.Server;
 /// This server can handle http / https requests.
 /// </summary>
 public class WebApiServer {
+  private const string OPEN_API_NAME = "hamfer-web-api-server-documentation";
+  
   private readonly int port;
   private readonly IPAddress? hostIpAddress;
   private readonly WebApiServerConfig config;
@@ -41,7 +43,7 @@ public class WebApiServer {
     
     WebApplicationOptions options = new()
     {
-      ApplicationName = config.appName ?? "Web-Api Server application",
+      ApplicationName = config.appInfo?.title ?? "Web-Api Server application",
       EnvironmentName = config.environment,
     };
     this.serverBuilder = WebApplication.CreateBuilder();
@@ -58,7 +60,13 @@ public class WebApiServer {
       });
     }
 
+    // this.serverBuilder.Services.AddSession();
     this.serverBuilder.Services.AddControllers();
+    this.serverBuilder.Services.AddEndpointsApiExplorer();
+    this.serverBuilder.Services.AddSwaggerGen(options =>
+    {
+      options.SwaggerDoc(OPEN_API_NAME, this.config.appInfo?.GetOpenApiInfo() ?? new OpenApiInfo());
+    });
   }
 
   /// <summary>
@@ -78,6 +86,15 @@ public class WebApiServer {
   public async Task start(params string[] args)
   {
     this.server ??= this.serverBuilder.Build();
+    // this.server.UseSession();
+    // if (this.config.environment == "development") {
+      this.server.UseSwagger();
+      this.server.UseSwaggerUI(options =>
+      {
+        options.SwaggerEndpoint($"/swagger/{OPEN_API_NAME}/swagger.json", OPEN_API_NAME);
+        options.RoutePrefix = "documents";
+      });
+    // }
     this.server.MapControllers();
 
     if (args.Length > 0 && args.FirstOrDefault(w => w.Equals("build-only", StringComparison.InvariantCultureIgnoreCase)) != null)
