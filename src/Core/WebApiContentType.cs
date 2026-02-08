@@ -420,6 +420,6 @@ public static class WebApiContentTypeEnumExtension
 {
   public static string ToStringContentType(this WebApiContentTypeEnum wact)
   {
-    return typeof(WebApiContentType).GetProperty(wact.ToString()).GetValue(WebApiContentType);
+    return Type.GetType("WebApiContentType")?.GetField(wact.ToString())?.GetValue(null)?.ToString() ?? "";
   }
 }
