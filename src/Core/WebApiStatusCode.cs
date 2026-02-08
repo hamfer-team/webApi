@@ -5,7 +5,7 @@ namespace Hamfer.WebApi.Core;
 
 public enum WebApiStatusCode 
 {
-  //#region Informational responses (100 – 199)
+  #region Informational responses (100 - 199)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   
   /// <summary> This interim response indicates that the client should continue the request or ignore the response if the request is already finished. </summary>
@@ -56,9 +56,9 @@ public enum WebApiStatusCode
   /// <summary> This status code is primarily intended to be used with the Link header, letting the user agent start preloading resources while the server prepares a response or preconnect to an origin from which the page will need resources. </summary>
   EARLY_HINTS = _103,
 
-  //#endregion
+  #endregion
 
-  //#region Successful responses (200 – 299)
+  #region Successful responses (200 - 299)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   /// <summary>
@@ -175,9 +175,9 @@ public enum WebApiStatusCode
   ///<summary> The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance. </summary>
   I_M_USED = _226,
 
-  //#endregion
+  #endregion
 
-  //#region Redirection messages (300 – 399)
+  #region Redirection messages (300 - 399)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   
   /// <summary>
@@ -285,9 +285,9 @@ public enum WebApiStatusCode
   /// <summary> This means that the resource is now permanently located at another URI, specified by the Location response header. This has the same semantics as the 301 Moved Permanently HTTP response code, with the exception that the user agent must not change the HTTP method used = if a POST was used in the first request, a POST must be used in the second request. </summary>
   Permanent_Redirect = _308,
 
-  //#endregion
+  #endregion
 
-  //#region Client error responses (400 – 499)
+  #region Client error responses (400 - 499)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   
   /// <summary> The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). </summary>
@@ -521,10 +521,26 @@ public enum WebApiStatusCode
   /// <summary> The request failed due to failure of a previous request. </summary>
   FAILED_DEPENDENCY = _424,
 
-  // Indicates that the server is unwilling to risk processing a request that might be replayed.
-  // Experimental. Expect behavior will change in future.
+  /// <summary>
+  /// Indicates that the server is unwilling to risk processing a request that might be replayed.
+  /// Experimental: Expect behavior will change in future.
+  /// </summary>
   _425 = 425,
-  TooEarly = _425, Too_Early = _425, _425_Too_Early = _425,
+  /// <summary>
+  /// Indicates that the server is unwilling to risk processing a request that might be replayed.
+  /// Experimental: Expect behavior will change in future.
+  /// </summary>
+  _425_Too_Early = _425,
+  /// <summary>
+  /// Indicates that the server is unwilling to risk processing a request that might be replayed.
+  /// Experimental: Expect behavior will change in future.
+  /// </summary>
+  TooEarly = _425,
+  /// <summary>
+  /// Indicates that the server is unwilling to risk processing a request that might be replayed.
+  /// Experimental: Expect behavior will change in future.
+  /// </summary>
+  Too_Early = _425,
 
   /// <summary>
   /// The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol. The server sends an Upgrade header in a 426 response to indicate the required protocol(s).
@@ -595,9 +611,9 @@ public enum WebApiStatusCode
   /// <summary> The user agent requested a resource that cannot legally be provided, such as a web page censored by a government. </summary>
   UNAVAILABLE_FOR_LEGAL_REASONS = _451,
 
-  //#endregion
+  #endregion
 
-  //#region Server error responses (500 – 599)
+  #region Server error responses (500 - 599)
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   /// <summary> The server has encountered a situation it does not know how to handle. This error is generic, indicating that the server cannot find a more appropriate 5XX status code to respond with. </summary>
@@ -715,5 +731,20 @@ public enum WebApiStatusCode
   /// <summary> Indicates that the client needs to authenticate to gain network access. </summary>
   Network_Authentication_Required = _511,
 
-  //#endregion
+  #endregion
 };
+
+public enum WebApiStatusCodeCategory
+{
+  Informational = 1,
+  Successful = 2,
+  Redirection = 3,
+  ClientError = 4,
+  ServerError = 5,
+}
+
+public static class WebApiStatusCodeExtensions
+{
+  public static WebApiStatusCodeCategory GetCategory(this WebApiStatusCode src) 
+    => (WebApiStatusCodeCategory)Math.Floor(((int)src) / 100d);
+}
