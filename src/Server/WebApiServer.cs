@@ -54,13 +54,17 @@ public class WebApiServer {
     });
     
     if (config.corsSettings != null) {
-      this.serverBuilder.Services.AddCors(corsOptions =>
+      this.addSession();
+    }
+
+    if (this.config.useSession) {
+      this.serverBuilder.Services.AddDistributedMemoryCache();
+      this.serverBuilder.Services.AddSession(options =>
       {
-        corsOptions.AddPolicy("CORS", config.corsSettings.build());
+        options.IdleTimeout = TimeSpan.FromSeconds(2 * 60);
       });
     }
 
-    // this.serverBuilder.Services.AddSession();
     this.serverBuilder.Services.AddControllers();
     this.serverBuilder.Services.AddEndpointsApiExplorer();
     this.serverBuilder.Services.AddSwaggerGen(options =>
@@ -70,7 +74,7 @@ public class WebApiServer {
   }
 
   /// <summary>
-  /// Ecplicity setting configs to use CORS policy
+  /// Explicity setting configs to use CORS policy
   /// </summary>
   /// <param name="corsSettings">The Web-Api suited cors settings</param>
   public void useCors(WebApiCorsSettings corsSettings)
@@ -79,6 +83,15 @@ public class WebApiServer {
   }
 
   /// <summary>
+  /// Explicisty setting configs to use Session in Web-Api.
+  /// This means you can access `Session` in the controllers without error
+  /// </summary>
+  public void useSession()
+  {
+    this.config.useSession = true;
+    this.addSession();
+  }
+  /// <summary>
   /// 
   /// </summary>
   /// <param name="args"></param>
@@ -86,7 +99,11 @@ public class WebApiServer {
   public async Task start(params string[] args)
   {
     this.server ??= this.serverBuilder.Build();
-    // this.server.UseSession();
+
+    if (this.config.useSession) {
+      this.server.UseSession();
+    }
+
     // if (this.config.environment == "development") {
       this.server.UseSwagger();
       this.server.UseSwaggerUI(options =>
@@ -107,5 +124,14 @@ public class WebApiServer {
 
     Console.WriteLine(this.config.startMessage);
     await this.server.RunAsync();
+  }
+
+  private void addSession()
+  {
+    this.serverBuilder.Services.AddDistributedMemoryCache();
+    this.serverBuilder.Services.AddSession(options =>
+    {
+      options.IdleTimeout = TimeSpan.FromSeconds(2 * 60);
+    });
   }
 }

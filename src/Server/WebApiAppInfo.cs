@@ -4,16 +4,16 @@ namespace Hamfer.WebApi.Server;
 
 public sealed class WebApiAppInfo
 {
-  public readonly string? title;
-  public readonly string? version;
-  public readonly string? description;
-  public readonly string? summary;
-  public readonly string? termsOfServiceUrl;
-  public readonly string? contactName;
-  public readonly string? contactEmail;
-  public readonly string? contactUsUrl;
-  public readonly string? licenceName;
-  public readonly string? licenceUrl;
+  public string? title { get; set; }
+  public string? version { get; set; }
+  public string? description { get; set; }
+  public string? summary { get; set; }
+  public string? termsOfServiceUrl { get; set; }
+  public string? contactName { get; set; }
+  public string? contactEmail { get; set; }
+  public string? contactUsUrl { get; set; }
+  public string? licenceName { get; set; }
+  public string? licenceUrl { get; set; }
 
   public OpenApiInfo GetOpenApiInfo()
   {
