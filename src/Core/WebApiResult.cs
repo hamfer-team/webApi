@@ -4,6 +4,9 @@ namespace Hamfer.WebApi.Core;
 
 public class WebApiResult
 {
+  const string MESSAGE_SUCCEED_DEFAULT = "اجرای درخواست با موفقیت پایان پذیرفت.";
+  const string MESSAGE_FAILED_DEFAULT = "در اجرای درخواست خطایی رخ داده است!";
+
   public readonly int statusCode;
   public readonly string contentType;
   
@@ -33,6 +36,16 @@ public class WebApiResult
     this.contentType = prepareContentType(contentType, charSet);
   }
 
+  public object getContent()
+  {
+    return new
+    {
+      succeed = this.succeed,
+      message = this.message ?? (this.succeed ? MESSAGE_SUCCEED_DEFAULT : MESSAGE_FAILED_DEFAULT),
+      content = this.content,
+    };
+  }
+
   private string prepareContentType(string contentType, string? charSet = null)
   {
     return WebApiContentType.AddCharSet(contentType, charSet);
@@ -40,7 +53,7 @@ public class WebApiResult
 
   private string prepareContentType(WebApiContentTypeEnum contentType, string? charSet = null)
   {
-    string contentTypeString = contentType.ToString();
+    string contentTypeString = contentType.ToStringContentType();
     return prepareContentType(contentTypeString, charSet);
   }
 

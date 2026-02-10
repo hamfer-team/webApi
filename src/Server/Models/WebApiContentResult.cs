@@ -74,8 +74,12 @@ public class WebApiContentResultStandard : ContentResult, IWebApiActionResult
   public WebApiContentResultStandard(WebApiResult result, bool useDispatchPrefix = false)
   {
     this.ContentType = result.contentType;
-    dynamic? content = result.content;
+    dynamic? content = result.getContent();
     this.Content = content != null ? (useDispatchPrefix ? RESPONSE_DISPATCH_PREFIX : "") + JsonSerializer.Serialize(content) : null;
     this.StatusCode = result.statusCode;
+  }
+
+  public WebApiContentResultStandard(object content, bool useDispatchPrefix = false): this(new WebApiResult(content), useDispatchPrefix)
+  {
   }
 }
