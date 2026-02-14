@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Hamfer.Kernel.Errors;
 using Microsoft.OpenApi;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Hamfer.WebApi.Server.Models;
 
 namespace Hamfer.WebApi.Server;
 
@@ -12,12 +14,14 @@ namespace Hamfer.WebApi.Server;
 /// This server can handle http / https requests.
 /// </summary>
 public class WebApiServer {
-  private const string OPEN_API_NAME = "hamfer-web-api-server-documentation";
+  internal const string OPEN_API_NAME = "hamfer-web-api-server-documentation";
+  internal const string AUTHENTICATION_SCHEME_NAME = "hamfer-web-api-server-auth";
   
   private readonly int port;
   private readonly IPAddress? hostIpAddress;
   private readonly WebApiServerConfig config;
   private readonly WebApplicationBuilder serverBuilder;
+  private  bool authSettingsApplied;
 
   private WebApplication? _server;
   private WebApplication? server
@@ -27,7 +31,7 @@ public class WebApiServer {
   }
 
   /// <summary>
-  /// Creating a new Web Api Server instance
+  /// Creating a new Web-Api Server instance
   /// </summary>
   /// <param name="config">Configs of web-api server</param>
   public WebApiServer(WebApiServerConfig config)
@@ -66,10 +70,13 @@ public class WebApiServer {
     }
 
     this.serverBuilder.Services.AddControllers();
+    this.addAuthentication();
+
     this.serverBuilder.Services.AddEndpointsApiExplorer();
     this.serverBuilder.Services.AddSwaggerGen(options =>
     {
       options.SwaggerDoc(OPEN_API_NAME, this.config.appInfo?.GetOpenApiInfo() ?? new OpenApiInfo());
+      this.applySwaggerAuth(options);
     });
   }
 
@@ -91,11 +98,27 @@ public class WebApiServer {
     this.config.useSession = true;
     this.addSession();
   }
+  
   /// <summary>
-  /// 
+  /// Explicity setting configs to use authentication
   /// </summary>
-  /// <param name="args"></param>
-  /// <returns></returns>
+  /// <param name="authSettings">The Web=-Api suited authentication settings</param>
+  public void useAuthentication(WebApiAuthenticationSettings authSettings)
+  {
+    this.config.authSettings = authSettings;
+    this.addAuthentication();
+
+    this.serverBuilder.Services.ConfigureSwaggerGen(options =>
+    {
+      this.applySwaggerAuth(options);
+    });
+  }
+
+  /// <summary>
+  ///  Starting the Web-Api server
+  /// </summary>
+  /// <param name="args">Not used YET!</param>
+  /// <returns>Nothing!</returns>
   public async Task start(params string[] args)
   {
     this.server ??= this.serverBuilder.Build();
@@ -126,6 +149,9 @@ public class WebApiServer {
     await this.server.RunAsync();
   }
 
+  /// <summary>
+  /// Add Session-Storage to Web-Api
+  /// </summary>
   private void addSession()
   {
     this.serverBuilder.Services.AddDistributedMemoryCache();
@@ -133,5 +159,40 @@ public class WebApiServer {
     {
       options.IdleTimeout = TimeSpan.FromSeconds(2 * 60);
     });
+  }
+
+  private void addAuthentication()
+  {
+    if (this.config.authSettings != null) {
+      var tokenValidator = this.config.authSettings.tokenValidator;
+      this.serverBuilder.Services.Add(new ServiceDescriptor(tokenValidator.GetType(), tokenValidator));
+      
+      this.serverBuilder.Services.AddAuthentication(options =>
+      {
+        options.DefaultScheme = AUTHENTICATION_SCHEME_NAME;
+        options.AddScheme<TokenAuthenticationHandler>(AUTHENTICATION_SCHEME_NAME, AUTHENTICATION_SCHEME_NAME);
+        // options.DefaultAuthenticateScheme = AUTHENTICATION_SCHEME_NAME;
+      });
+    }
+  }
+  private void applySwaggerAuth(SwaggerGenOptions options)
+  {
+    if (this.config.authSettings != null && !this.authSettingsApplied)
+    {
+      this.authSettingsApplied = true;
+      options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+      {
+        Name = "Authorization",
+        Description = @"JWT Authorization header using the Bearer scheme. Adding `Bearer ` at start is NOT NEEDED!",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+      });
+      options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+      {
+          [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+      });
+    }
   }
 }

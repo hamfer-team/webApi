@@ -21,11 +21,11 @@ public class WebApiServerConfig {
   public readonly string startMessage;
   public WebApiCorsSettings? corsSettings { get; set; }
   public bool useSession {get; set;}
+  public WebApiAuthenticationSettings? authSettings { get; set; }
 
   //documentationRoute: string;
   //sslSettings: WebApiSslSettings | null;
   //sessionMaxAge: number;
-  //corsSettings: WebApiCorsSettings;
 
   /// <summary>
   /// Creating a new Web Api Server Config.
@@ -43,7 +43,8 @@ public class WebApiServerConfig {
     string? environment = null,
     string? startMessage = null,
     WebApiCorsSettings? corsSettings = null,
-    bool useSession = false
+    bool useSession = false,
+    WebApiAuthenticationSettings? authSettings = null
   )
   {
     this.port = port ?? PORT_DEFAULT;
@@ -52,6 +53,7 @@ public class WebApiServerConfig {
     this.environment = environment;
     this.corsSettings = corsSettings;
     this.useSession = useSession;
+    this.authSettings = authSettings;
     
     string message = startMessage ?? START_MESSAGE_DEFAULT;
     message = message
