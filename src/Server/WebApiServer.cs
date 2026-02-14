@@ -127,6 +127,11 @@ public class WebApiServer {
       this.server.UseSession();
     }
 
+    if (this.config.authSettings != null)
+    {
+      this.server.UseAuthentication();
+    }
+
     // if (this.config.environment == "development") {
       this.server.UseSwagger();
       this.server.UseSwaggerUI(options =>
