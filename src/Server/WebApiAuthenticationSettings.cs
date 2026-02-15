@@ -10,11 +10,9 @@ public sealed class WebApiAuthenticationSettings
   public string audience { get; set; }
   public string secretKey { get; set; }
   public string userIdClaim { get; set; }
-  public ITokenValidator tokenValidator { get; set; }
 
-  public WebApiAuthenticationSettings(ITokenValidator tokenValidator, string secretKey, string issuer, string audience, string? userIdClaim = null)
+  public WebApiAuthenticationSettings(string secretKey, string issuer, string audience, string? userIdClaim = null)
   {
-    this.tokenValidator = tokenValidator;
     this.secretKey = secretKey;
     this.issuer = issuer;
     this.audience = audience;
