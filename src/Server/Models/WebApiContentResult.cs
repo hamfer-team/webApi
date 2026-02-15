@@ -71,15 +71,15 @@ public class WebApiContentResultStandard : ContentResult, IWebApiActionResult
   /// </summary>
   const string RESPONSE_DISPATCH_PREFIX = "]";
 
-  public WebApiContentResultStandard(WebApiResult result, bool useDispatchPrefix = false)
+  public WebApiContentResultStandard(object content, bool useDispatchPrefix = false)
   {
-    this.ContentType = result.contentType;
-    dynamic? content = result.getContent();
-    this.Content = content != null ? (useDispatchPrefix ? RESPONSE_DISPATCH_PREFIX : "") + JsonSerializer.Serialize(content) : null;
-    this.StatusCode = result.statusCode;
-  }
+    WebApiResult? result = content is WebApiResult ? (content as WebApiResult) : new WebApiResult(content);
+    dynamic? dContent = result?.getContent();
 
-  public WebApiContentResultStandard(object content, bool useDispatchPrefix = false): this(new WebApiResult(content), useDispatchPrefix)
-  {
+    JsonSerializerOptions options = new() { IncludeFields = true };
+    this.Content = dContent != null ? (useDispatchPrefix ? RESPONSE_DISPATCH_PREFIX : "") + JsonSerializer.Serialize(dContent, options) : null;
+
+    this.ContentType = result?.contentType ?? WebApiContentType.AddCharSet(WebApiContentType.JSON, "utf-8");
+    this.StatusCode = result?.statusCode ?? (int)WebApiStatusCode.NoContent;
   }
 }

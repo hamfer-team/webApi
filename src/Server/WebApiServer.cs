@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Hamfer.Kernel.Errors;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Hamfer.WebApi.Server.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Hamfer.WebApi.Server;
 
@@ -13,7 +15,7 @@ namespace Hamfer.WebApi.Server;
 /// The Web-Api suited server.
 /// This server can handle http / https requests.
 /// </summary>
-public class WebApiServer {
+public sealed class WebApiServer {
   internal const string OPEN_API_NAME = "hamfer-web-api-server-documentation";
   internal const string AUTHENTICATION_SCHEME_NAME = "hamfer-web-api-server-auth";
   
@@ -130,6 +132,7 @@ public class WebApiServer {
     if (this.config.authSettings != null)
     {
       this.server.UseAuthentication();
+      this.server.UseAuthorization();
     }
 
     // if (this.config.environment == "development") {
@@ -168,18 +171,32 @@ public class WebApiServer {
 
   private void addAuthentication()
   {
-    if (this.config.authSettings != null) {
-      var tokenValidator = this.config.authSettings.tokenValidator;
-      this.serverBuilder.Services.Add(new ServiceDescriptor(tokenValidator.GetType(), tokenValidator));
-      
-      this.serverBuilder.Services.AddAuthentication(options =>
-      {
-        options.DefaultScheme = AUTHENTICATION_SCHEME_NAME;
-        options.AddScheme<TokenAuthenticationHandler>(AUTHENTICATION_SCHEME_NAME, AUTHENTICATION_SCHEME_NAME);
-        // options.DefaultAuthenticateScheme = AUTHENTICATION_SCHEME_NAME;
-      });
+    WebApiAuthenticationSettings? authSettings = this.config.authSettings;
+    if (authSettings != null) {
+      this.serverBuilder.Services
+        .AddAuthentication(options =>
+        {
+          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options => 
+        {
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = authSettings.issuer,
+            ValidAudience = authSettings.audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.secretKey)),
+            ClockSkew = TimeSpan.Zero, // No extra time after token expiry
+          };
+        });
+      this.serverBuilder.Services.AddAuthorization();
     }
   }
+  
   private void applySwaggerAuth(SwaggerGenOptions options)
   {
     if (this.config.authSettings != null && !this.authSettingsApplied)
@@ -188,7 +205,7 @@ public class WebApiServer {
       options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
       {
         Name = "Authorization",
-        Description = @"JWT Authorization header using the Bearer scheme. Adding `Bearer ` at start is NOT NEEDED!",
+        Description = $"🔑 JWT Authorization header using the Bearer scheme. 💥 **DO NOT** add 'Bearer ' at the begining!",
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",

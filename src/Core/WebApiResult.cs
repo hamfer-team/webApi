@@ -38,11 +38,13 @@ public class WebApiResult
 
   public object getContent()
   {
+    this.message ??= (this.succeed ? MESSAGE_SUCCEED_DEFAULT : MESSAGE_FAILED_DEFAULT);
+    
     return new
     {
-      succeed = this.succeed,
-      message = this.message ?? (this.succeed ? MESSAGE_SUCCEED_DEFAULT : MESSAGE_FAILED_DEFAULT),
-      content = this.content,
+      this.succeed,
+      this.message,
+      this.content,
     };
   }
 
