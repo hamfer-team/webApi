@@ -8,7 +8,7 @@ public class WebApiResult
   const string MESSAGE_FAILED_DEFAULT = "در اجرای درخواست خطایی رخ داده است!";
 
   public readonly int statusCode;
-  public readonly string contentType;
+  public readonly string? contentType;
   
   public string? message { get; set; }
   public dynamic? content { get; set; }
@@ -18,14 +18,14 @@ public class WebApiResult
     dynamic? content,
     string? message = null,
     WebApiStatusCode statusCode = WebApiStatusCode.Ok,
-    WebApiContentTypeEnum contentType = WebApiContentTypeEnum.JSON,
+    WebApiContentTypeEnum? contentType = WebApiContentTypeEnum.JSON,
     string? charSet = null
   )
   {
     this.message = message;
     this.content = content;
     this.statusCode = (int)statusCode;
-    this.contentType = prepareContentType(contentType, charSet);
+    this.contentType = prepareContentType(contentType ?? WebApiContentTypeEnum.JSON, charSet);
   }
 
   public WebApiResult(dynamic? content, string? message, int statusCode, string contentType, string? charSet = null)
@@ -36,8 +36,13 @@ public class WebApiResult
     this.contentType = prepareContentType(contentType, charSet);
   }
 
-  public object getContent()
+  public object? getContent()
   {
+    if (this.statusCode == (int)WebApiStatusCode.NoContent)
+    {
+      return null;
+    }
+
     this.message ??= (this.succeed ? MESSAGE_SUCCEED_DEFAULT : MESSAGE_FAILED_DEFAULT);
     
     return new
@@ -72,7 +77,7 @@ public class WebApiResult
   public static WebApiResult Accepted(dynamic? content = null, WebApiContentTypeEnum contentType = WebApiContentTypeEnum.TEXT, string? charSet = null)
     => Handle(WebApiStatusCodeCategory.Successful, content, WebApiStatusCode._202_Accepted, contentType, charSet);
   public static WebApiResult NoContent()
-    => Handle(WebApiStatusCodeCategory.Successful, null, WebApiStatusCode._204_No_Content, WebApiContentTypeEnum.TEXT, null);
+    => Handle(WebApiStatusCodeCategory.Successful, null, WebApiStatusCode._204_No_Content, null, null);
 
   public static WebApiResult Redirect(dynamic? content = null, WebApiStatusCode statusCode = WebApiStatusCode._307_Temporary_Redirect, WebApiContentTypeEnum contentType = WebApiContentTypeEnum.JSON, string? charSet = "utf-8")
     => Handle(WebApiStatusCodeCategory.Redirection, content, statusCode, contentType, charSet);
@@ -107,7 +112,7 @@ public class WebApiResult
   public static WebApiResult Unavailable(dynamic? content = null, WebApiContentTypeEnum contentType = WebApiContentTypeEnum.JSON, string? charSet = "utf-8")
     => Handle(WebApiStatusCodeCategory.ServerError, content, WebApiStatusCode._503_Service_Unavailable, contentType, charSet);
   
-  private static WebApiResult Handle(WebApiStatusCodeCategory cat, dynamic? content, WebApiStatusCode statusCode, WebApiContentTypeEnum contentType, string? charSet)
+  private static WebApiResult Handle(WebApiStatusCodeCategory cat, dynamic? content, WebApiStatusCode statusCode, WebApiContentTypeEnum? contentType, string? charSet)
   {
     if (statusCode.GetCategory() != cat)
     {
